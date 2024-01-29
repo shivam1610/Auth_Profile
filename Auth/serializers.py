@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model, authenticate
+from .models import Profile
+from drf_extra_fields.fields import Base64ImageField
 
 UserModel = get_user_model()
 
@@ -8,7 +10,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserModel
 		fields = '__all__'
-	def create(self, clean_data):
+	def create(self, clean_data):  
 		user_obj = UserModel.objects.create_user(email=clean_data['email'], password=clean_data['password'])
 		user_obj.username = clean_data['username']
 		user_obj.save()
@@ -26,5 +28,8 @@ class UserLoginSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = UserModel
-		fields = ('email', 'username')
+		model = Profile
+		fields = ('email', 'username','password','image','location','cv','certificates','paydetails','leave')
+
+
+

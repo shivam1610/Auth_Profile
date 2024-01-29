@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from Auth.models import AppUser
+#Register your models here.
+
+admin.site.register(AppUser)
+

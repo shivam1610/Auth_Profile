@@ -8,7 +8,7 @@ from .validations import custom_validation, validate_email, validate_password
 
 
 class UserRegister(APIView):
-	permission_classes = (permissions.AllowAny,)
+	permission_classes = (permissions.AllowAny,) #AllowAny allows excess to page without any authantiucation
 	def post(self, request):
 		clean_data = custom_validation(request.data)
 		serializer = UserRegisterSerializer(data=clean_data)
@@ -45,7 +45,13 @@ class UserLogout(APIView):
 class UserView(APIView):
 	permission_classes = (permissions.IsAuthenticated,)
 	authentication_classes = (SessionAuthentication,)
-	##
 	def get(self, request):
 		serializer = UserSerializer(request.user)
 		return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
+	def post(self, request):
+		serializer = UserSerializer(data=request.data)
+		if serializer.is_valid:
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
