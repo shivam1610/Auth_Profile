@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from Auth.models import AppUser
+from Auth.models import Profile
 #Register your models here.
 
-admin.site.register(AppUser)
-
+admin.site.register(Profile) 

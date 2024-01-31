@@ -1,0 +1,7 @@
+Steps to complete Profile_Auth API:
+1. Model 
+2. Serializer 
+3. View -> Use APIView
+4. URL -> configure URL
+5. Authantication -> Use Token based authantication
+6. Test API -> use httpie library to test api
