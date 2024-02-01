@@ -5,3 +5,20 @@ Steps to complete Profile_Auth API:
 4. URL -> configure URL
 5. Authantication -> Use Token based authantication
 6. Test API -> use httpie library to test api
+
+
+
+
+Points to research later on 
+1. How to customise django authantication model django.contrib.auth.models.
+
+
+
+Note Section on project:
+login - taken care by token authantication
+logout - taken care by token authantication
+
+-If loggged in we should be able to see profile data - get will do(single profile)
+-Complete profile after login - use put method
+-Edititng holiday, certificates and imgaes - patch
+-delete profile - delete method will do 

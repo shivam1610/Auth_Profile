@@ -1,6 +1,7 @@
 from django.db import models
 # from django.contrib.auth.base_user import BaseUserManager
 # from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import User
 
 #<--------------------------Old Code----------------------------->
 # class AppUserManager(BaseUserManager):
@@ -57,8 +58,9 @@ from django.db import models
 
 #<-------------------------New------------------------------------->
 
-#Profile MOdel
+#Profile Model
 class Profile(models.Model):
+	User = models.OneToOneField(User, on_delete=models.CASCADE)
 	Name = models.CharField(max_length=100)
 	Phone = models.IntegerField(default=0)
 	Location = models.CharField(max_length=100)
@@ -67,14 +69,3 @@ class Profile(models.Model):
 	def __str__(self):
 		return self.Name
 
-
-#signal code creates token automatically
-# from django.conf import settings
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
-# from rest_framework.authtoken.models import Token
-
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def create_auth_token(sender, instance=None, created=False,**kwargs):
-# 	if created:
-# 		Token.objects.create(user=instance)

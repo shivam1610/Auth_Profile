@@ -94,7 +94,7 @@ DATABASES = {
 }
 
 ## User Model
-# AUTH_USER_MODEL = 'Auth.AppUser'
+#AUTH_USER_MODEL = 'Auth.User'
 
 #Global Authentication 
 # REST_FRAMEWORK = {

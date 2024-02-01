@@ -9,7 +9,10 @@ urlpatterns = [
 	# path('logout', views.UserLogout.as_view(), name='logout'),
     #<-------------------------End----------------------------------->
     
-	path('users', views.UserView.as_view(), name='user'),
-    path('users/<int:pk>/', views.UserView.as_view(), name='each_user'),
+	# path('users', views.UserView.as_view(), name='user'),
+    path('users/<int:pk>/', views.UserProfileView.as_view(), name='each_user'),
+    path('profilecomplete/<int:pk>/', views.CompleteProfile.as_view(), name='complete_profile'),
+    path('editprofile/<int:pk>/', views.EditProfile.as_view(), name='edited_profile'),
+    path('delete/<int:pk>/', views.DeleteProfile.as_view(), name='delete_profile'),
     path('gettoken/', CustomAuthToken.as_view)
 ] 
