@@ -3,7 +3,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ProfileSerializer,UserSerializer
+from .serializers import ProfileSerializer,UserSerializer,FileSerializer,ImageSerializer
 from rest_framework import permissions, status
 # from .validations import custom_validation, validate_email, validate_password
 from .models import Profile,User
@@ -126,13 +126,14 @@ class UserProfileView(APIView):
 			data_retive_user = User.objects.get(pk=id)
 			serializer_profile = ProfileSerializer(data_retrive_profile)
 			serializer_user = UserSerializer(data_retive_user)
+			print(serializer_profile.data['image'])
 			return Response({'profile': serializer_profile.data, 'user':serializer_user.data}, status=status.HTTP_200_OK)
 			
 		# data_retrive_profile = Profile.objects.all()
 		# data_retive_user = User.objects.all()
 		# serializer_profile = ProfileSerializer(data_retrive_profile, many=True)
 		# serializer_user = UserSerializer(data_retive_user, many=True)
-		return Response({'user':serializer_user.data}, status=status.HTTP_200_OK)
+		#return Response({'user':serializer_user.data}, status=status.HTTP_200_OK)
 
 class CompleteProfile(APIView):
 	# authentication_classes=[TokenAuthentication]
@@ -163,7 +164,7 @@ class EditProfile(APIView):
 			serializer.save()
 			return Response({'msg':'Partial data updated'})
 		return Response(serializer.error)
-
+       
 class DeleteProfile(APIView):
 	# authentication_classes=[TokenAuthentication]
 	# permission_classes=[IsAuthenticated]
@@ -175,3 +176,33 @@ class DeleteProfile(APIView):
 		data_retrive = Profile.objects.get(pk=id)
 		data_retrive.delete()
 		return Response({'msg':'Data Deleted'})
+
+class UploadImage(APIView):
+	# authentication_classes=[TokenAuthentication]
+	# permission_classes=[IsAuthenticated]
+
+	"""
+	This code is to create new data
+	"""
+	def post(self, request, format=None,*args, **kwargs):
+		serializer = ImageSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Successfully posted Image'}, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UploadFile(APIView):
+	# authentication_classes=[TokenAuthentication]
+	# permission_classes=[IsAuthenticated]
+
+	"""
+	This code is to create new data
+	"""
+	def post(self, request, format=None):
+		serializer = FileSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Successfully posted file'}, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	
+

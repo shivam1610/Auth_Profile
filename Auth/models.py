@@ -69,3 +69,12 @@ class Profile(models.Model):
 	def __str__(self):
 		return self.Name
 
+class FileModel(models.Model):
+    profile = models.ForeignKey(Profile, related_name = 'file',on_delete=models.CASCADE)
+    file = models.FileField(upload_to='file')
+
+
+class ImageModel(models.Model):
+    profile = models.ForeignKey(Profile, related_name='image',on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='img')
+

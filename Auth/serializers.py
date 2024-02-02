@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model, authenticate
-from .models import Profile
+from .models import Profile,FileModel,ImageModel
 from django.contrib.auth.models import User
 
 #<-----------------------------Old Code-------------------------------------->
@@ -47,8 +47,30 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username','email','password','id')
 
 class ProfileSerializer(serializers.ModelSerializer):
+    file = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='file-detail'
+    )    
+    file = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='image-detail'
+    )   
     class Meta:
         model = Profile
-        fields = ('Name','Phone','Location','Leave','id')
+        fields = ('Name','Phone','Location','Leave','file','image','id')
+
+
+#The MultipleFileSerializer and MultipleImageSerializer does not intract with the database they are just used for serialising data.
  
-   
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FileModel
+        fields = ("__all__")
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageModel
+        fields =("__all__")
+

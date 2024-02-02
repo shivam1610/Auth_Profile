@@ -11,6 +11,7 @@ Steps to complete Profile_Auth API:
 
 Points to research later on 
 1. How to customise django authantication model django.contrib.auth.models.
+2. How to store file and image in different folder - Use different Models to store data and relate them
 
 
 
