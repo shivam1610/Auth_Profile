@@ -65,16 +65,21 @@ class Profile(models.Model):
 	Phone = models.IntegerField(default=0)
 	Location = models.CharField(max_length=100)
 	Leave = models.IntegerField(default=0)
-	
 	def __str__(self):
 		return self.Name
 
-class FileModel(models.Model):
-    profile = models.ForeignKey(Profile, related_name = 'file',on_delete=models.CASCADE)
-    file = models.FileField(upload_to='file')
+class PaySlips(models.Model):
+	profile = models.ForeignKey(Profile, related_name = 'payslips',on_delete=models.CASCADE)
+	PaySlips = models.FileField(upload_to='payslips')
 
+    
+class StackCertificate(models.Model):
+	profile = models.ForeignKey(Profile, related_name='stackcertificate',on_delete=models.CASCADE)
+	StackCertificate = models.FileField(upload_to='stack_certificates')
+    
+    
 
-class ImageModel(models.Model):
-    profile = models.ForeignKey(Profile, related_name='image',on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='img')
-
+class Resume(models.Model):
+	profile = models.ForeignKey(Profile, related_name='resume',on_delete=models.CASCADE)
+	Resume = models.FileField(upload_to='resume')
+      

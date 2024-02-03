@@ -3,10 +3,10 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ProfileSerializer,UserSerializer,FileSerializer,ImageSerializer
+from .serializers import ProfileSerializer,UserSerializer,PaySlipsSerializer,StackCertificateSerializer,ResumeSerializer
 from rest_framework import permissions, status
 # from .validations import custom_validation, validate_email, validate_password
-from .models import Profile,User
+from .models import Profile,User,PaySlips,StackCertificate,Resume
 
 #<-----------------------------Old_View----------------------------------->
 # class UserRegister(APIView):
@@ -124,10 +124,21 @@ class UserProfileView(APIView):
 		if id is not None:
 			data_retrive_profile = Profile.objects.get(pk=id)
 			data_retive_user = User.objects.get(pk=id)
+			data_retive_payslips= PaySlips.objects.filter(profile=id)
+			data_retrive_stackcertificate = StackCertificate.objects.filter(profile=id)
+			data_retrive_resume = Resume.objects.filter(profile=id)
 			serializer_profile = ProfileSerializer(data_retrive_profile)
 			serializer_user = UserSerializer(data_retive_user)
-			print(serializer_profile.data['image'])
-			return Response({'profile': serializer_profile.data, 'user':serializer_user.data}, status=status.HTTP_200_OK)
+			serializer_payslips = PaySlipsSerializer(data_retive_payslips,many=True)
+			serializer_stackcertificate = StackCertificateSerializer(data_retrive_stackcertificate,many=True)
+			serializer_resume = ResumeSerializer(data_retrive_resume,many=True)
+			print(serializer_payslips.data)
+			
+			return Response({'profile': serializer_profile.data, 
+							'user':serializer_user.data, 
+							'payslips':serializer_payslips.data,
+							'stackcertificate':serializer_stackcertificate.data,
+							'resume':serializer_resume.data}, status=status.HTTP_200_OK)
 			
 		# data_retrive_profile = Profile.objects.all()
 		# data_retive_user = User.objects.all()
@@ -177,7 +188,7 @@ class DeleteProfile(APIView):
 		data_retrive.delete()
 		return Response({'msg':'Data Deleted'})
 
-class UploadImage(APIView):
+class PaySlipsView(APIView):
 	# authentication_classes=[TokenAuthentication]
 	# permission_classes=[IsAuthenticated]
 
@@ -185,13 +196,13 @@ class UploadImage(APIView):
 	This code is to create new data
 	"""
 	def post(self, request, format=None,*args, **kwargs):
-		serializer = ImageSerializer(data=request.data)
+		serializer = PaySlipsSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
-			return Response({'msg':'Successfully posted Image'}, status=status.HTTP_201_CREATED)
+			return Response({'msg':'Successfully posted file'}, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UploadFile(APIView):
+class StackCertificateView(APIView):
 	# authentication_classes=[TokenAuthentication]
 	# permission_classes=[IsAuthenticated]
 
@@ -199,10 +210,22 @@ class UploadFile(APIView):
 	This code is to create new data
 	"""
 	def post(self, request, format=None):
-		serializer = FileSerializer(data=request.data)
+		serializer = StackCertificateSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response({'msg':'Successfully posted file'}, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	
+class ResumeView(APIView):
+	# authentication_classes=[TokenAuthentication]
+	# permission_classes=[IsAuthenticated]
 
+	"""
+	This code is to create new data
+	"""
+	def post(self, request, format=None):
+		serializer = ResumeSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Successfully posted file'}, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

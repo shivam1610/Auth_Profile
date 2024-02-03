@@ -14,7 +14,8 @@ urlpatterns = [
     path('profilecomplete/<int:pk>/', views.CompleteProfile.as_view(), name='complete_profile'),
     path('editprofile/<int:pk>/', views.EditProfile.as_view(), name='edited_profile'),
     path('delete/<int:pk>/', views.DeleteProfile.as_view(), name='delete_profile'),
-    path('uploadimage/<int:pk>/',views.UploadImage.as_view(),name='upload_image'),
-    path('uploadfile/<int:pk>/', views.UploadFile.as_view(), name='upload_file'),
+    path('payslipsview/<int:pk>/',views.PaySlipsView.as_view(),name='payslip'),
+    path('stackcertifiacte/<int:pk>/', views.StackCertificateView.as_view(), name='stackcertificate'),
+    path('resumeview/<int:pk>/', views.ResumeView.as_view(), name='stackcertificate'),
     path('gettoken/', CustomAuthToken.as_view)
 ] 
