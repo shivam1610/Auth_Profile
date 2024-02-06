@@ -7,5 +7,6 @@ admin.site.register(Profile)
 admin.site.register(PaySlips)
 admin.site.register(StackCertificate)
 admin.site.register(Resume)
+
 # admin.site.register(FileModel)
 # admin.site.register(ImageModel)

@@ -71,15 +71,20 @@ class Profile(models.Model):
 class PaySlips(models.Model):
 	profile = models.ForeignKey(Profile, related_name = 'payslips',on_delete=models.CASCADE)
 	PaySlips = models.FileField(upload_to='payslips')
-
+    
+	def __str__(self):
+            return self.profile
+		
     
 class StackCertificate(models.Model):
 	profile = models.ForeignKey(Profile, related_name='stackcertificate',on_delete=models.CASCADE)
 	StackCertificate = models.FileField(upload_to='stack_certificates')
-    
-    
+	def __str__(self):
+            return self.profile
 
 class Resume(models.Model):
 	profile = models.ForeignKey(Profile, related_name='resume',on_delete=models.CASCADE)
 	Resume = models.FileField(upload_to='resume')
-      
+	def __str__(self):
+            return self.profile
+			

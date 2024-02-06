@@ -83,3 +83,4 @@ class ResumeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resume
         fields = ('Resume',)
+

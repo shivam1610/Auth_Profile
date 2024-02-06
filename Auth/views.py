@@ -188,7 +188,7 @@ class DeleteProfile(APIView):
 		data_retrive.delete()
 		return Response({'msg':'Data Deleted'})
 
-class PaySlipsView(APIView):
+class PaySlipsView(APIView):	
 	# authentication_classes=[TokenAuthentication]
 	# permission_classes=[IsAuthenticated]
 
