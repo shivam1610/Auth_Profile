@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
-# from rest_framework.authtoken.views import obtain_auth_token
 from .token_auth import CustomAuthToken
+
 urlpatterns = [
     #<-------------------------OldURl-------------------------------->
 	# path('register', views.UserRegister.as_view(), name='register'),
@@ -17,5 +17,5 @@ urlpatterns = [
     path('payslipsview/<int:pk>/',views.PaySlipsView.as_view(),name='payslip'),
     path('stackcertifiacte/<int:pk>/', views.StackCertificateView.as_view(), name='stackcertificate'),
     path('resumeview/<int:pk>/', views.ResumeView.as_view(), name='stackcertificate'),
-    path('gettoken/', CustomAuthToken.as_view)
+    path('login/', CustomAuthToken.as_view(), name = 'login_createuser')
 ] 

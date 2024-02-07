@@ -98,12 +98,13 @@ DATABASES = {
 
 #Global Authentication 
 # REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework.authentication.TokenAuthentication',
 #     ),
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',
+        
+#     ],
 # }
 
 # Password validation
@@ -154,8 +155,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'picture')
 MEDIA_URL = '/picture/'
 
 
-ALLOWED_HOSTS=['http://localhost:3000']
-CORS_ORIGIN_ALLOW_ALL = False
+ALLOWED_HOSTS=['*']
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
        'http://localhost:3000',
+       'http://127.0.0.1:8000',
+)
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
 )

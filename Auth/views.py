@@ -1,6 +1,10 @@
 from django.contrib.auth import get_user_model, login, logout
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import authenticate
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import ProfileSerializer,UserSerializer,PaySlipsSerializer,StackCertificateSerializer,ResumeSerializer
@@ -112,6 +116,18 @@ from .models import Profile,User,PaySlips,StackCertificate,Resume
 # 		return Response({'msg':'Data Deleted'})
 
 #<----------------------------------END----------------------------------------------------->
+# @method_decorator(csrf_exempt,name='dispatch')
+# class LoginView(APIView):
+# 	authentication_classes = [TokenAuthentication]
+
+# 	def post(self, request):
+#         # Your authentication logic here
+# 		user = authenticate(username=request.data['username'], password=request.data['password'])
+# 		if user:
+# 			token, created = Token.objects.get_or_create(user=user)	
+# 			return Response({'token': token.key})
+# 		else:
+# 			return Response({'error': 'Invalid credentials'}, status=401)
 
 class UserProfileView(APIView):
 	# authentication_classes=[TokenAuthentication]
@@ -126,7 +142,7 @@ class UserProfileView(APIView):
 			data_retive_user = User.objects.get(pk=id)
 			data_retive_payslips= PaySlips.objects.filter(profile=id)
 			data_retrive_stackcertificate = StackCertificate.objects.filter(profile=id)
-			data_retrive_resume = Resume.objects.filter(profile=id)
+			data_retrive_resume = Resume.objects.filter(profile=id)	
 			serializer_profile = ProfileSerializer(data_retrive_profile)
 			serializer_user = UserSerializer(data_retive_user)
 			serializer_payslips = PaySlipsSerializer(data_retive_payslips,many=True)
