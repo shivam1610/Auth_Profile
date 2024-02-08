@@ -156,11 +156,10 @@ class UserProfileView(APIView):
 							'stackcertificate':serializer_stackcertificate.data,
 							'resume':serializer_resume.data}, status=status.HTTP_200_OK)
 			
-		# data_retrive_profile = Profile.objects.all()
-		# data_retive_user = User.objects.all()
-		# serializer_profile = ProfileSerializer(data_retrive_profile, many=True)
-		# serializer_user = UserSerializer(data_retive_user, many=True)
-		#return Response({'user':serializer_user.data}, status=status.HTTP_200_OK)
+		data_retrive_profile = Profile.objects.all()
+		serializer_profile = ProfileSerializer(data_retrive_profile, many=True)
+		print(serializer_profile)
+		return Response({'user':serializer_profile.data}, status=status.HTTP_200_OK)
 
 class CompleteProfile(APIView):
 	# authentication_classes=[TokenAuthentication]

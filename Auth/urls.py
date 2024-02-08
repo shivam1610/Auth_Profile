@@ -10,6 +10,7 @@ urlpatterns = [
     #<-------------------------End----------------------------------->
     
 	# path('users', views.UserView.as_view(), name='user'),
+    path('users/', views.UserProfileView.as_view(), name='each_user'),
     path('users/<int:pk>/', views.UserProfileView.as_view(), name='each_user'),
     path('profilecomplete/<int:pk>/', views.CompleteProfile.as_view(), name='complete_profile'),
     path('editprofile/<int:pk>/', views.EditProfile.as_view(), name='edited_profile'),
